@@ -1,17 +1,22 @@
 import React from 'react';
-import './App.css';
-import Drawer from './component/Drawer/Drawer';
-import Main from './component/Main/Main';
 import Navbar from './component/Navbar/Navbar';
+import Loader from './component/Loader/Loader'
+import { Provider } from "./component/Context/Context";
+
+const Main = React.lazy(() => import('./component/Main/Main'))
+const Drawer = React.lazy(() => import('./component/Drawer/Drawer'))
+
 
 function App() {
   return (
-    <div className="App">
-     <h1>CryptoKnight</h1>
-     <Drawer />
-     <Main />
-     <Navbar />
-    </div>
+    <Provider>
+      <React.Suspense fallback={<Loader/>}>
+        <h1>CryptoKnight</h1>
+        <Drawer />
+        <Main />
+        <Navbar />
+      </React.Suspense>
+    </Provider>
   );
 }
 
