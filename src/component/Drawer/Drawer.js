@@ -5,9 +5,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+
 import Navbar from '../Navbar/Navbar';
+import AuthContainer from '../Auth/AuthContainer'
 // use divider in profile component 
 // import Divider from '@material-ui/core/Divider';
+
 const Main = React.lazy(() => import('../Main/Main'))
 
 const drawerWidth = 340;
@@ -19,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
    appBar: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginRight: drawerWidth,
+      backgroundColor: '#4caf50'
    },
    drawer: {
       width: drawerWidth,
@@ -52,10 +56,8 @@ const useStyles = makeStyles((theme) => ({
          </Toolbar>
       </AppBar>
       <main className={classes.content}>
-         <Typography paragraph>
          <div className={classes.toolbar} />
             <Main />
-         </Typography>
       </main>
       <Drawer
          className={classes.drawer}
@@ -65,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
          }}
          anchor="right"
       >
-         Login/Register component
+         <AuthContainer />
       </Drawer>
       </div>
    );

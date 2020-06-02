@@ -6,19 +6,19 @@ const reducer = (state, action) => {
    switch (action.type) {
       case "SUCCESS_SIGNED_IN":
          return {
-         ...state,
-         isAuth: {
-            user: action.payload,
-            auth: true,
-         },
+            ...state,
+            isAuth: {
+               user: action.payload,
+               auth: true,
+            },
          };
       case "LOGGED_OUT":
          return {
-         ...state,
-         isAuth: {
-            user: null,
-            auth: false,
-         }
+            ...state,
+            isAuth: {
+               user: null,
+               auth: false,
+            }
          }
       default:
          return state;
