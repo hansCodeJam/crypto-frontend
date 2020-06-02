@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import validator from 'validator'
 import {
-   Button,
-   Popper,
    Fade,
+   Popper,
+   Button,
    TextField, 
    DialogContent, 
    DialogActions
@@ -84,7 +84,11 @@ export default class Login extends Component{
          default:
             break;
       }
-      const disabled = loginForm.email.value && loginForm.password.value && !popper.message ? false: true 
+      const disabled = loginForm.email.value 
+                        && loginForm.password.value 
+                        && !popper.message 
+                        ? false
+                        : true 
       this.setState({...this.state, loginForm, popper, disabled})
    }
 

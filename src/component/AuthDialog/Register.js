@@ -1,47 +1,188 @@
-import React from 'react'
+import React, { Component } from 'react'
+import validator from 'validator'
 import { 
+   Fade,
    Button, 
+   Popper,
    TextField, 
    DialogContent, 
    DialogActions 
 } from '@material-ui/core';
 
-export default function Register(props) {
-   const {handleClose} = props
-   return (
-      <>
-         <DialogContent>
-            <TextField
-               autoFocus
-               margin="dense"
-               id="name"
-               label="Name"
-               type="text"
-               fullWidth
-            />
-            <TextField
-               margin="dense"
-               id="email"
-               label="Email Address"
-               type="email"
-               fullWidth
-            />
-            <TextField
-               margin="dense"
-               id="password"
-               label="Password"
-               type="password"
-               fullWidth
-            />
-         </DialogContent>
-         <DialogActions>
-            <Button onClick={handleClose} color="primary">
-               Cancel
-            </Button>
-            <Button onClick={null} color="primary">
-               Register
-            </Button>
-         </DialogActions>
-      </>
-   )
+import { register } from '../Helpers/authFunctions'
+
+export default class Register extends Component {
+
+   state = {
+      registerForm:{
+         name: {
+            autoFocus: true,
+            margin: 'dense',
+            name: 'name',
+            id: 'name',
+            label: 'Enter your name',
+            type: 'text',
+            fullWidth: true,
+            value: ''
+         },
+         email: {
+            autoFocus: false,
+            margin: 'dense',
+            name: 'email',
+            id: 'email',
+            label: 'Enter Email',
+            type: 'email',
+            fullWidth: true,
+            value: ''
+         },
+         password:{
+            autoFocus: false,
+            margin: 'dense',
+            name: 'password',
+            id: 'password',
+            label: 'Enter Password',
+            type: 'password',
+            fullWidth: true,
+            value: ''
+         }
+      },
+      popper:{
+         currentTarget: null,
+         open: false,
+         message: ''
+      },
+      disabled: true
+   }
+
+   handleChange = (e) => {
+      const popper = {...this.state.popper}
+
+      const registerForm = { ...this.state.registerForm }
+
+      registerForm[e.target.name].value = e.target.value
+      
+      switch (e.target.name) {
+         case 'name':
+            const validatedName = validator.matches(
+               e.target.value,
+               /^[a-zA-Z0-9]{1,16}$/
+            )
+            if(!validatedName){
+               popper.currentTarget = e.currentTarget
+               popper.open = true
+               popper.message = 'Cannot contain special characters and minimum of 2 and maximum of 20 characters'
+            }else{
+               popper.currentTarget = null
+               popper.open = false
+               popper.message = ''
+            }
+            break
+         case 'email':
+            const validatedEmail = validator.isEmail(e.target.value)
+            if(!validatedEmail){
+               popper.currentTarget = e.currentTarget
+               popper.open = true
+               popper.message = 'Must be an email'
+            }else{
+               popper.currentTarget = null
+               popper.open = false
+               popper.message = ''
+            }
+            break
+         case 'password':
+            const validatedPassword = validator.matches(
+               e.target.value,
+               "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+            )
+            if(validatedPassword){
+               popper.currentTarget = e.currentTarget
+               popper.open = true
+               popper.message = 'Minimum eight characters, at least one letter, one number and one special character'
+            }else{
+               popper.currentTarget = null
+               popper.open = false
+               popper.message = ''
+            }
+            break
+         default:
+            break;
+      }
+      const disabled = registerForm.name.value 
+                        &&registerForm.email.value 
+                        && registerForm.password.value 
+                        && !popper.message 
+                        ? false
+                        : true 
+      this.setState({...this.state, registerForm, popper, disabled})
+   }
+
+   handleSubmit = async(e) => {
+      e.preventDefault()
+      const { name, email, password } = this.state.registerForm
+
+      let success = await register({name: name.value, email: email.value, password: password.value})
+
+      console.log(success)
+   }
+
+   render(){
+      const { handleClose } = this.props
+      const { registerForm, popper, disabled } = this.state
+
+      const registerFormInput = []
+
+      for (let key in registerForm){
+         registerFormInput.push({
+            registerForm: registerForm[key]
+         })
+      }
+
+      return (
+         <>
+            <Popper
+                  id={null}
+                  open={popper.open}
+                  anchorEl={popper.currentTarget}
+                  placement={'top-end'}
+                  style={{zIndex: '1500'}}
+                  transition
+               >
+               { ({ TransitionProps}) => (
+                  <Fade {...TransitionProps} timeout={350}>
+                     {popper.message 
+                        ? <div className='popper'>{popper.message}</div>
+                        : <div></div>
+                     }
+                  </Fade>
+               )}
+            </Popper>
+            <DialogContent>
+               {registerFormInput.map(({registerForm:{ autoFocus, margin, name, id, label, type, fullWidth, value}}) => {
+                  return(
+                     <TextField 
+                        key={name}
+                        autoFocus={autoFocus}
+                        margin={margin}
+                        name={name}
+                        id={id}
+                        label={label}
+                        type={type}
+                        fullWidth={fullWidth}
+                        value={value}
+                        onChange={this.handleChange}
+                     />
+                  )
+               })}
+            </DialogContent>
+            <DialogActions>
+               <Button onClick={handleClose} color="primary">
+                  Cancel
+               </Button>
+               <Button onClick={this.handleSubmit} color="primary" disabled={disabled}>
+                  Register
+               </Button>
+            </DialogActions>
+         </>
+      )
+   }
 }
