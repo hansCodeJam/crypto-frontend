@@ -6,9 +6,7 @@ export default class Main extends Component {
     static contextType = Context
     render() {
         return (
-            <div>
-                <h1>Main</h1>
-            </div>
+            <h1>Main</h1>
         )
     }
 }
