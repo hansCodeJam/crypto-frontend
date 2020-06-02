@@ -38,7 +38,7 @@ export default function Register(props) {
             <Button onClick={handleClose} color="primary">
                Cancel
             </Button>
-            <Button onClick={''} color="primary">
+            <Button onClick={null} color="primary">
                Register
             </Button>
          </DialogActions>
