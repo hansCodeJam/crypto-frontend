@@ -8,11 +8,11 @@ import {
    DialogContent, 
    DialogActions 
 } from '@material-ui/core';
-
-import { register } from '../Helpers/authFunctions'
+import { Context } from '../Context/Context'
+import { register, login } from '../Helpers/authFunctions'
 
 export default class Register extends Component {
-
+   static contextType = Context
    state = {
       registerForm:{
          name: {
@@ -65,6 +65,7 @@ export default class Register extends Component {
          case 'name':
             const validatedName = validator.matches(
                e.target.value,
+               // change minimum to 3 after development
                /^[a-zA-Z0-9]{1,16}$/
             )
             if(!validatedName){
@@ -94,10 +95,11 @@ export default class Register extends Component {
                e.target.value,
                "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
             )
+            //change to -> !validatedPassword <-
             if(validatedPassword){
                popper.currentTarget = e.currentTarget
                popper.open = true
-               popper.message = 'Minimum eight characters, at least one letter, one number and one special character'
+               popper.message = 'Minimum eight characters, at least one uppercase and lowercase letter, one number and one special character'
             }else{
                popper.currentTarget = null
                popper.open = false
@@ -119,10 +121,32 @@ export default class Register extends Component {
    handleSubmit = async(e) => {
       e.preventDefault()
       const { name, email, password } = this.state.registerForm
+      try {
+         let success = await register({username: name.value, email: email.value, password: password.value})
+         if(success.message === 'User created'){
+            const success = await login({email: email.value, password: password.value})
 
-      let success = await register({name: name.value, email: email.value, password: password.value})
+            let registerForm = {
+            ...this.state.registerForm,
+            };
 
-      console.log(success)
+            registerForm["email"].value = "";
+            registerForm["name"].value = "";
+            registerForm["password"].value = "";
+
+            this.setState({
+               ...this.state,
+               registerForm
+            });
+            this.context.dispatch({
+               type: "SUCCESS_SIGNED_IN",
+               payload: success.user,
+            });
+         }
+      } catch (err) {
+         console.log(err)
+      }
+
    }
 
    render(){
@@ -143,7 +167,7 @@ export default class Register extends Component {
                   id={null}
                   open={popper.open}
                   anchorEl={popper.currentTarget}
-                  placement={'top-end'}
+                  placement={'top-start'}
                   style={{zIndex: '1500'}}
                   transition
                >

@@ -34,7 +34,7 @@ export default class AuthContainer extends Component {
             {({isAuth:{user, auth} }) => {
                return(
                   <>
-                  {user && auth ? 'user profile component' 
+                  {user && auth ? <div>{user.username}/{user.walletUSD}</div>
                   : ( <>
                         <AuthDialog mode={mode} open={open} handleClose={this.handleClose} changeMode={this.changeMode}/>
                         <Button variant="contained" color="primary" onClick={this.handleClick}>
