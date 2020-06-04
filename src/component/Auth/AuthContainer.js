@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Button from '@material-ui/core/Button';
+import jwt_decode from 'jwt-decode'
+import Cookies from 'js-cookie'
 
 import AuthDialog from '../AuthDialog/AuthDialog'
 import { Consumer, Context } from '../Context/Context'
@@ -7,12 +9,12 @@ import { Consumer, Context } from '../Context/Context'
 import './AuthContainer.css'
 
 export default class AuthContainer extends Component {
+   static contextType = Context
    state = {
       open: false,
       mode: 'Login'
    }
 
-   static contextType = Context
    
    handleClose = () =>{
       this.setState({open: false})
@@ -25,6 +27,23 @@ export default class AuthContainer extends Component {
    changeMode = () =>{
       const mode = this.state.mode === 'Login' ? 'Register' : 'Login'
       this.setState({mode})
+   }
+
+   getUserFromCookie(){
+      const cookie = Cookies.get('jwt-access-token')
+
+      if(cookie){
+         const user = jwt_decode(cookie)
+
+         this.context.dispatch({
+         type: "SUCCESS_SIGNED_IN",
+         payload: user
+         })
+      }
+   }
+
+   componentDidMount(){
+      this.getUserFromCookie()
    }
 
    render() {
