@@ -4,7 +4,10 @@ import jwt_decode from 'jwt-decode'
 import Cookies from 'js-cookie'
 
 import AuthDialog from '../AuthDialog/AuthDialog'
+import Profile from '../Profile/Profile'
+import Leaderboard from '../Leaderboard/Leaderboard'
 import { Consumer, Context } from '../Context/Context'
+import Divider from '@material-ui/core/Divider'
 
 import './AuthContainer.css'
 
@@ -53,7 +56,13 @@ export default class AuthContainer extends Component {
             {({isAuth:{user, auth} }) => {
                return(
                   <>
-                  {user && auth ? <div>{user.username}/{user.walletUSD}</div>
+                  {user && auth ? (
+                  <>
+                  <Profile />
+                  <Divider />
+                  <Leaderboard />
+                  </>
+                  )
                   : ( <>
                         <AuthDialog mode={mode} open={open} handleClose={this.handleClose} changeMode={this.changeMode}/>
                         <Button variant="contained" color="primary" onClick={this.handleClick}>
