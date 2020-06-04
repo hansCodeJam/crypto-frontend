@@ -9,14 +9,16 @@ import {
    DialogActions
 } from '@material-ui/core';
 
-
+import { Context } from '../Context/Context'
 import { login } from '../Helpers/authFunctions'
+import { ToastContainer, toast } from "react-toastify";
 
+import "react-toastify/dist/ReactToastify.css";
 import './Login.css'
 
 
 export default class Login extends Component{
-
+   static contextType = Context
    state = {
       loginForm:{
          email: {
@@ -93,12 +95,37 @@ export default class Login extends Component{
    }
 
    handleSubmit = async(e) => {
-      e.preventDefault()
-      const { email, password } = this.state.loginForm
-      
-      let success = await login({email: email.value, password: password.value})
+      try {
+         e.preventDefault()
+         const { email, password } = this.state.loginForm
+         
+         let success = await login({email: email.value, password: password.value})
 
-      console.log(success)
+         let loginForm = { ...this.state.loginForm };
+
+         loginForm["email"].value = "";
+         loginForm["password"].value = "";
+
+         this.setState({
+            ...this.state,
+            loginForm
+         });
+         this.context.dispatch({
+            type: "SUCCESS_SIGNED_IN",
+            payload: success.user,
+         });
+      } catch (err) {
+         console.log(err.message)
+         toast.error(err.message, {
+         position: "top-center",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         })
+      }
    }
    
 
@@ -115,6 +142,17 @@ export default class Login extends Component{
 
       return (
          <>
+            <ToastContainer
+               position="top-center"
+               autoClose={5000}
+               hideProgressBar={false}
+               newestOnTop={false}
+               closeOnClick
+               rtl={false}
+               pauseOnFocusLoss
+               draggable
+               pauseOnHover
+            />
             <Popper
                id={null}
                open={popper.open}

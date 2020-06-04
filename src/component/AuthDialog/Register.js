@@ -10,6 +10,9 @@ import {
 } from '@material-ui/core';
 import { Context } from '../Context/Context'
 import { register, login } from '../Helpers/authFunctions'
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 export default class Register extends Component {
    static contextType = Context
@@ -145,8 +148,16 @@ export default class Register extends Component {
          }
       } catch (err) {
          console.log(err)
+         toast.error(err.message, {
+         position: "top-center",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         })
       }
-
    }
 
    render(){
@@ -162,7 +173,18 @@ export default class Register extends Component {
       }
 
       return (
-         <>
+         <> 
+            <ToastContainer
+               position="top-center"
+               autoClose={5000}
+               hideProgressBar={false}
+               newestOnTop={false}
+               closeOnClick
+               rtl={false}
+               pauseOnFocusLoss
+               draggable
+               pauseOnHover
+            />
             <Popper
                   id={null}
                   open={popper.open}
