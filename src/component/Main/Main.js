@@ -7,21 +7,42 @@ import axios from 'axios';
 export default class Main extends Component {
     static contextType = Context
     state = {
-        bitcoin: []
+        query: '',
+        currency: []
     }
 
-    componentDidMount() {
-        axios.get('https://api.coingecko.com/api/v3/coins/bitcoin?tickers=true&market_data=true').then(res => {
-            const bitcoin = res.data;
-            // console.log(bitcoin)
-            this.setState({ bitcoin })
+    handleInputChange = () => {
+        this.setState({
+            query:this.search.value
         })
     }
+
+    componentDidUpdate(prevProps, prevState){
+        if(this.state.query !== prevState.query) {
+            axios.get(`https://api.coingecko.com/api/v3/coins/${this.state.query}?tickers=true&market_data=true`).then(res => {
+                const currency = res.data;
+                this.setState({ currency })
+            })
+        }
+    }
+
+    // componentDidMount() {
+    //     axios.get(`https://api.coingecko.com/api/v3/coins/${this.state.query}?tickers=true&market_data=true`).then(res => {
+    //         const currency = res.data;
+    //         this.setState({ currency })
+    //     })
+    // }
 
 
     render() {
         return (
-            <h1>{this.state.bitcoin.name}</h1>
+            <form>
+                <input placeholder="Search for crypto..." onChange={this.handleInputChange} ref={input => this.search = input}/>
+                {/* <img src={this.state.currency.image.thumb} /> */}
+                <img src='' />
+                <h1>{this.state.currency.name}</h1>
+                <h1>{this.state.currency.symbol}</h1>
+            </form>
         )
     }
 }
