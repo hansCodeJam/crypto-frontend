@@ -1,4 +1,5 @@
 import Axios from './Axios'
+import Cookies from 'js-cookie'
 
 export const login = async(user) => {
    try {
@@ -23,3 +24,16 @@ export const register = async(user) => {
       throw Error(err.response.data.message)
    }
 }
+
+export const logout = async () => {
+      try {
+         Cookies.remove('jwt-access-token')
+         Cookies.remove('jwt-refresh-token')
+         
+         const result = await Axios.get('/api/users/logout')
+         return result.data
+      } catch (error) {
+         console.log(error)
+         throw Error(error)
+      }
+   }

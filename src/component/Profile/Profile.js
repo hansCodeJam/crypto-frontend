@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { Consumer, Context } from '../Context/Context'
 import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+
+import { logout } from '../Helpers/authFunctions'
 import picture from '../../assets/logo.png'
+import './Profile.css'
 
 
 const avatarStyle={
@@ -18,6 +22,14 @@ const profileContainer={
 export default class Profile extends Component {
    static contextType = Context
    
+   logout = async ()=>{
+      await logout()
+      
+      this.context.dispatch({
+      type: "LOGGED_OUT"
+      })
+   }
+
    render() {
       return (
          <Consumer>
@@ -31,9 +43,15 @@ export default class Profile extends Component {
                      <div>{user.walletUSD}$</div>
                      {user.crypto.map(crypto=> {
                         return(
-                           <div>{crypto}</div>
+                           <>
+                              <div>{crypto.name}</div>
+                              <div>{crypto.amount}</div>
+                           </>
                         )
                      })}
+                     <Button onClick={this.logout} className='my-button' variant="contained" color="primary">
+                        Logout
+                     </Button>
                   </div>
                )
             }}
