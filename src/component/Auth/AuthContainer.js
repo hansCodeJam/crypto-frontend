@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import Button from '@material-ui/core/Button';
-import jwt_decode from 'jwt-decode'
+import Divider from '@material-ui/core/Divider'
 import Cookies from 'js-cookie'
-
 import AuthDialog from '../AuthDialog/AuthDialog'
 import Profile from '../Profile/Profile'
 import Leaderboard from '../Leaderboard/Leaderboard'
 import { Consumer, Context } from '../Context/Context'
-import Divider from '@material-ui/core/Divider'
+import { latestUserInfo } from '../Helpers/Api'
 
 import './AuthContainer.css'
 
@@ -32,16 +31,20 @@ export default class AuthContainer extends Component {
       this.setState({mode})
    }
 
-   getUserFromCookie(){
-      const cookie = Cookies.get('jwt-access-token')
+   getUserFromCookie = async()=>{
 
-      if(cookie){
-         const user = jwt_decode(cookie)
-
-         this.context.dispatch({
-         type: "SUCCESS_SIGNED_IN",
-         payload: user
-         })
+      try {
+         const token = Cookies.get('jwt-access-token')
+         if(token){
+            let user = await latestUserInfo(token)
+            this.context.dispatch({
+            type: "SUCCESS_SIGNED_IN",
+            payload: user
+            })
+         }
+         
+      } catch (error) {
+         console.log(error)
       }
    }
 

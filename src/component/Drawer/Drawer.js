@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
       <AppBar position="fixed" className={classes.appBar}>
          <Toolbar>
             <Typography variant="h5" noWrap>
-               CryptoKnight
+               Cryptonite
             </Typography>
             <Navbar />
          </Toolbar>
