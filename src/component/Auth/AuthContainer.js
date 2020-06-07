@@ -60,11 +60,11 @@ export default class AuthContainer extends Component {
                return(
                   <>
                   {user && auth ? (
-                  <>
-                  <Profile />
-                  <Divider />
-                  <Leaderboard />
-                  </>
+                     <>
+                        <Profile />
+                        <Divider />
+                        <Leaderboard />
+                     </>
                   )
                   : ( <>
                         <AuthDialog mode={mode} open={open} handleClose={this.handleClose} changeMode={this.changeMode}/>

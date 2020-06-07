@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Divider from '@material-ui/core/Divider'
-import Typography from '@material-ui/core/Typography';
 import Sparkle from 'react-sparkle'
 import './LeaderBoard.css'
 
@@ -19,10 +18,7 @@ export default class Leaderoard extends Component {
          let money = 20000 - i * 1000
          people.push({name, money})
       }
-      this.setState({topTen: people}, () => {
-         console.log(this.state.topTen)
-      }
-      )
+      this.setState({topTen: people})
    }
 
    componentDidMount(){
@@ -41,8 +37,8 @@ export default class Leaderoard extends Component {
             {
                topTen.map(({name,money},i)=>{
                   return(
-                     <>
-                        <div className={i===0?'topEntry':i===1? 'secondEntry': i===2? 'thirdEntry' :'entryContainer'} key={name}>
+                     <React.Fragment key={name}>
+                        <div className={i===0?'topEntry':i===1? 'secondEntry': i===2? 'thirdEntry' :'entryContainer'}>
                            <div className='entryName'>{name}</div>
                            <div className='entryMoney'>{money}</div>
                            {i<2 && 
@@ -53,7 +49,7 @@ export default class Leaderoard extends Component {
                            i>2 &&
                            <Divider />
                         }
-                     </>
+                     </React.Fragment>
                   )
                })
             }
