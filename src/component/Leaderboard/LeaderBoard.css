@@ -20,6 +20,7 @@
    font-weight: bold;
    background-color: gold;
    font-style: italic;
+   border-radius: 5px;
 }
 
 .secondEntry{
@@ -30,6 +31,7 @@
    justify-content: space-between;
    font-weight: bold;
    background-color: silver;
+   border-radius: 5px;
 }
 
 .thirdEntry{
@@ -39,6 +41,7 @@
    justify-content: space-between;
    font-weight: bold;
    background-color: #cd7f32;
+   border-radius: 5px;
 }
 
 .entryContainer{
@@ -46,6 +49,7 @@
    width: 100%;
    align-items: center;
    justify-content: space-between;
+   border-radius: 5px;
 }
 
 .entryName{

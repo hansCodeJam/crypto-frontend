@@ -49,7 +49,10 @@ export default class Leaderoard extends Component {
                               <Sparkle overflowPx={0} minSize={i===0?20:10} count={i===0? 50:30} flickerSpeed={'slowest'} fadeOutSpeed={1}/>
                            }
                         </div>
-                        <Divider />
+                        {
+                           i>2 &&
+                           <Divider />
+                        }
                      </>
                   )
                })
