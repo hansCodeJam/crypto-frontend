@@ -51,7 +51,6 @@ export default class Profile extends Component {
       return (
          <Consumer>
             {({isAuth:{user} }) => {
-               console.log(user)
                const stateUser = this.state.user
                return(
                   <div className='profileContainer'>
