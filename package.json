@@ -15,6 +15,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
+    "react-sparkle": "^1.0.6",
     "react-toastify": "^6.0.5",
     "validator": "^13.0.0"
   },
