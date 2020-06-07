@@ -46,29 +46,29 @@ const useStyles = makeStyles((theme) => ({
 
    return (
       <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-         <Toolbar>
-            <Typography variant="h5" noWrap>
-               Cryptonite
-            </Typography>
-            <Navbar />
-         </Toolbar>
-      </AppBar>
-      <main className={classes.content}>
-         <div className={classes.toolbar} />
-            <Main />
-      </main>
-      <Drawer
-         className={classes.drawer}
-         variant="permanent"
-         classes={{
-            paper: classes.drawerPaper,
-         }}
-         anchor="right"
-      >
-         <AuthContainer />
-      </Drawer>
+         <CssBaseline />
+         <AppBar position="fixed" className={classes.appBar}>
+            <Toolbar>
+               <Typography variant="h5" noWrap>
+                  Cryptonite
+               </Typography>
+               <Navbar />
+            </Toolbar>
+         </AppBar>
+         <main className={classes.content}>
+            <div className={classes.toolbar} />
+               <Main />
+         </main>
+         <Drawer
+            className={classes.drawer}
+            variant="permanent"
+            classes={{
+               paper: classes.drawerPaper,
+            }}
+            anchor="right"
+         >
+            <AuthContainer />
+         </Drawer>
       </div>
    );
 }
