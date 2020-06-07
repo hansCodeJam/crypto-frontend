@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { Context } from '../Context/Context'
 import axios from 'axios';
 import Marquee from './Marquee/Marquee';
-
+import MainLayout from './MainLayout'
+import Navbar from '../Navbar/Navbar';
+import MainProvider from './MainProvider';
 
 
 export default class Main extends Component {
@@ -29,24 +31,23 @@ export default class Main extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     axios.get(`https://api.coingecko.com/api/v3/coins/${this.state.query}?tickers=true&market_data=true`).then(res => {
-    //         const crypto = res.data;
-    //         this.setState({ crypto })
-    //     })
-    // }
-
 
     render() {
         const { image } = this.state;
         return (
-            <form>
+            <div>
                 <Marquee />
-                <input placeholder="Search for crypto..." onChange={this.handleInputChange} ref={input => this.search = input}/>
-                {/* <img src={this.state.crypto.image.thumb} /> */}
-                {/* <img src={image} /> */}
-                <h1>{this.state.crypto.symbol}</h1>
-            </form>
+                       <MainLayout>
+                        <MainProvider>
+                            <Navbar />
+                            <input placeholder="Search for crypto..." onChange={this.handleInputChange} ref={input => this.search = input}/>
+                            {/* <img src={this.state.crypto.image.thumb} /> */}
+                            {/* <img src={image} /> */}
+                            <h1>{this.state.crypto.symbol}</h1>
+                        </MainProvider>
+                    </MainLayout>
+
+            </div>
         )
     }
 }

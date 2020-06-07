@@ -1,14 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Bitcoin from './SubMarquee.js/Bitcoin';
-import Ethereum from './SubMarquee.js/Ethereum'
+import Ethereum from './SubMarquee.js/Ethereum';
+import styled from 'styled-components';
+import MarqueeLayout from './MarqueeLayout';
 
-export default class Marquee extends Component {
-    render() {
-        return (
-            <div>
-                <Bitcoin />
-                <Ethereum />
-            </div>
-        )
-    }
+
+export default function() {
+    return <MarqueeLayout>
+            <Bitcoin />
+            <Ethereum />
+           </MarqueeLayout>
 }

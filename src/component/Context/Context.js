@@ -34,12 +34,16 @@ export class Provider extends Component {
       dispatch: (action) => {
          this.setState((state) => reducer(state, action));
       },
+
+      page: 'main'
    };
+   
+   setPage = page = this.setState({ page })
 
    render() {
       return (
          <Context.Provider value={this.state}>
-         {this.props.children}
+            {this.props.children}
          </Context.Provider>
       );
    }

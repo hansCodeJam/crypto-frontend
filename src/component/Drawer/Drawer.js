@@ -49,10 +49,7 @@ const useStyles = makeStyles((theme) => ({
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
          <Toolbar>
-            <Typography variant="h5" noWrap>
-               Cryptonite
-            </Typography>
-            <Navbar />
+           <Navbar />
          </Toolbar>
       </AppBar>
       <main className={classes.content}>
