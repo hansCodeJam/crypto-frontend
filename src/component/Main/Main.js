@@ -3,7 +3,6 @@ import { Context } from '../Context/Context'
 import axios from 'axios';
 import Marquee from './Marquee/Marquee';
 import MainLayout from './MainLayout'
-import Navbar from '../Navbar/Navbar';
 import MainProvider from './MainProvider';
 
 
@@ -39,7 +38,6 @@ export default class Main extends Component {
                 <Marquee />
                        <MainLayout>
                         <MainProvider>
-                            <Navbar />
                             <input placeholder="Search for crypto..." onChange={this.handleInputChange} ref={input => this.search = input}/>
                             {/* <img src={this.state.crypto.image.thumb} /> */}
                             {/* <img src={image} /> */}

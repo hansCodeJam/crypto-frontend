@@ -35,10 +35,10 @@ export class Provider extends Component {
          this.setState((state) => reducer(state, action));
       },
 
-      page: 'main'
+      // page: 'main'
    };
    
-   setPage = page = this.setState({ page })
+   // setPage = page = this.setState({ page })
 
    render() {
       return (

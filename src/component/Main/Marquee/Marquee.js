@@ -6,8 +6,8 @@ import MarqueeLayout from './MarqueeLayout';
 
 
 export default function() {
-    return <MarqueeLayout>
+    return <div>
             <Bitcoin />
             <Ethereum />
-           </MarqueeLayout>
+           </div>
 }
