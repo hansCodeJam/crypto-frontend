@@ -3,8 +3,10 @@ import { Consumer, Context } from '../Context/Context'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider'
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
 import { logout } from '../Helpers/authFunctions'
+import Info from '../Info/Info'
 import picture from '../../assets/logo.png'
 import './Profile.css'
 
@@ -22,8 +24,18 @@ export default class Profile extends Component {
          ], 
          _id: "5ed948d83400e87c90cd618a", 
          email: "1@1.com", 
-         username: "1"}
+         username: "1"
+      },
+      isOpen: false
       
+   }
+
+   handleOpen = ()=>{
+      this.setState({isOpen: true})
+   }
+
+   handleClose = ()=>{
+      this.setState({isOpen: false})
    }
 
    getTotal = ()=>{
@@ -33,6 +45,10 @@ export default class Profile extends Component {
       },0)
       user.walletUSD = Number(total.toFixed(2))
       this.setState({user})
+   }
+
+   getInfo = () =>{
+      console.log('Hey Hey')
    }
    
    logout = async ()=>{
@@ -54,6 +70,8 @@ export default class Profile extends Component {
                const stateUser = this.state.user
                return(
                   <div className='profileContainer'>
+                     <InfoOutlinedIcon className='info-icon' onClick={this.handleOpen} style={{alignSelf:'flex-end', marginRight: '30px'}}/>
+                     <Info open={this.state.isOpen} handleClose={this.handleClose}/>
                      <Avatar alt="avatar picture" src={picture} style={{width:'7em', height:'7em', padding:'10px'}}/>
                      <div className='user-info'>
                         <div className='user-welcome'>Welcome, {stateUser.username}!</div>
