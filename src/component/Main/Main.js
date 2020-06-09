@@ -4,6 +4,9 @@ import axios from 'axios';
 import Marquee from './Marquee/Marquee';
 import MainLayout from './MainLayout'
 import MainProvider from './MainProvider';
+import MainBar from './MainBar';
+import Coins from './Coins/Coins';
+import Content from './Shared/Content'
 
 
 export default class Main extends Component {
@@ -37,15 +40,24 @@ export default class Main extends Component {
             <div>
                 <Marquee />
                        <MainLayout>
-                        <MainProvider>
-                            <input placeholder="Search for crypto..." onChange={this.handleInputChange} ref={input => this.search = input}/>
-                            {/* <img src={this.state.crypto.image.thumb} /> */}
-                            {/* <img src={image} /> */}
-                            <h1>{this.state.crypto.symbol}</h1>
-                        </MainProvider>
-                    </MainLayout>
+                           <MainProvider>
+                                <MainBar />
+                                <Content>
+                                    <Coins />
+
+                                </Content>
+                            </MainProvider>
+                       </MainLayout>
 
             </div>
         )
     }
 }
+
+
+
+
+//   {/* <input placeholder="Search for crypto..." onChange={this.handleInputChange} ref={input => this.search = input}/>
+//                                 {/* <img src={this.state.crypto.image.thumb} /> */}
+//                                 {/* <img src={image} /> */}
+//                             <h1>{this.state.crypto.symbol}</h1> */}

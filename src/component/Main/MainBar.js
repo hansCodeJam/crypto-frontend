@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './Navbar';
+// import './Navbar';
 import styled, {css} from 'styled-components'
 import { MainContext } from '../Main/MainProvider';
 
@@ -16,27 +16,30 @@ const Logo = styled.div`
 const ControlButtonElem = styled.div`
     cursor: pointer;
     ${props => props.active && css`
-        text-shadow: 0px 0px 60px #03ff03;
+    color: blue;
     `}
 `
 
-const toProperCase = (lower) => {
-    return lower.charAt(0).toUpperCase() + lower.substr(1);
+function ControlButton({name}) {
+    return(
+       <MainContext.Consumer>
+           {({page, setPage}) => (
+           <ControlButtonElem 
+           active={page === name}
+           onClick={()=> setPage(name)}>
+                {name}
+            </ControlButtonElem>
+    )}
+        </MainContext.Consumer>
+    )
 }
-
-// const ControlButton = ({name, active}) => {
-//   <MainContext.Consumer>
-//       <ControlButtonElem active={active}>
-//           {toProperCase(name)}
-//       </ControlButtonElem>
-//   </MainContext.Consumer>
-// }
 
 export default class Navbar extends Component {
     render() {
         return (
             <Bar>
-               <Logo>Cryptonite</Logo>
+               <ControlButton active name="main" />
+               <ControlButton name="coins" />
             </Bar>
         )
     }
