@@ -61,3 +61,8 @@ table, th, td {
    color: #fafafa;
    background-color: #4caf50;
 }
+
+.info-icon:hover{
+   cursor: pointer;
+   color: grey
+}
