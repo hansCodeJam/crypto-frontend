@@ -21,14 +21,14 @@ export default function Info(props){
          >
          <DialogTitle id="alert-dialog-title">{"Welcome to our first collab project!"}</DialogTitle>
          <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-            <a href="https://github.com/hansCodeJam" target='_blank'><Avatar style={{width:'3em', height:'3em'}} alt="Hans" src="https://avatars0.githubusercontent.com/u/54951702?s=400&v=4"/></a>
+            <a href="https://github.com/hansCodeJam" target='_blank' rel="noopener noreferrer"><Avatar style={{width:'3em', height:'3em'}} alt="Hans" src="https://avatars0.githubusercontent.com/u/54951702?s=400&v=4"/></a>
             &nbsp;<p style={{fontSize:'2em'}}>/</p>&nbsp;
-            <a href="https://github.com/ignitikus" target='_blank'><Avatar style={{width:'3em', height:'3em'}} alt="Niko" src="https://avatars0.githubusercontent.com/u/54951587?s=460&u=4"/></a>
+            <a href="https://github.com/ignitikus" target='_blank' rel="noopener noreferrer"><Avatar style={{width:'3em', height:'3em'}} alt="Niko" src="https://avatars0.githubusercontent.com/u/54951587?s=460&u=4"/></a>
          </div>
          <DialogContent>
             <DialogContentText id="alert-dialog-description" >
-               <p style={{display:'flex', alignContent:'center', alignItems:'center'}}>Link to frontend repo:  &nbsp;<a href="https://github.com/hansCodeJam/crypto-frontend"><GitHubIcon fontSize='large'/></a></p>
-               <p style={{display:'flex', alignContent:'center', alignItems:'center'}}>Link to backend repo:  &nbsp;<a href="https://github.com/hansCodeJam/crypto-backend"><GitHubIcon fontSize='large'/></a></p>
+               <p style={{display:'flex', alignContent:'center', alignItems:'center'}}>Link to frontend repo:  &nbsp;<a href="https://github.com/hansCodeJam/crypto-frontend" target='_blank'><GitHubIcon fontSize='large'/></a></p>
+               <p style={{display:'flex', alignContent:'center', alignItems:'center'}}>Link to backend repo:  &nbsp;<a href="https://github.com/hansCodeJam/crypto-backend" target='_blank'><GitHubIcon fontSize='large'/></a></p>
             </DialogContentText>
          </DialogContent>
          <DialogActions>
