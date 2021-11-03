@@ -19,7 +19,7 @@
     "react-sparkle": "^1.0.6",
     "react-toastify": "^6.0.5",
     "styled-components": "^5.1.1",
-    "validator": "^13.0.0"
+    "validator": "^13.7.0"
   },
   "scripts": {
     "start": "react-scripts start",
